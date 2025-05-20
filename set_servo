@@ -1,0 +1,20 @@
+from adafruit_servokit import ServoKit
+from time import sleep
+
+# Initialize the ServoKit for 16 channels
+kit = ServoKit(channels=16)
+
+try:
+    servo_pin = int(input("Enter servo number (0-3): "))
+    angle = float(input("Enter angle (e.g., 0 to 180 degrees): "))
+    kit.servo[servo_pin].actuation_range = 180
+    kit.servo[servo_pin].set_pulse_width_range(500, 2500)
+
+    if 0 <= servo_pin < 16 and 0 <= angle <= 180:
+        kit.servo[servo_pin].angle = angle
+        print(f"Servo pin {servo_pin} moved to {angle} degrees.")
+    else:
+        print("Invalid servo pin or angle value.")
+
+except ValueError:
+    print("Error: Please enter valid numbers for servo number and angle.")
